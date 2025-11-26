@@ -33,39 +33,50 @@ function fibsRec(num) {
 
 
 //merge sort
-let sort = [];
-function mergeSort(arr){
-    console.log('Recusion')
-    if(arr.length == 0){
-        return 'No elements in array'
+function mergeSort(arr, left, right , mid){
+    //take entire array and divide as evenly as possible
+    //select left subarray and split (repeat)
+    //left subarray of length 1 cannot be split -> indicates merge [end] [sort]
+    //select right subarray and split (length 1 merge)
+    //selected merged(sorted) left and right subarray and merge
+    //selected smallest of both arrays
+    if(arr.length ==0){
+        return 'empty arr';
     }
-    if(arr.length ==1){
-        return arr[0]
+    if(arr.length == 1){
+        return arr;
     }
-    if(arr.length ==2){
-        //now sort/find larger/smaller of 2 numbers
-        if(arr[0]==arr[1]){
-            return [arr[0],arr[1]]
-        }
-        else if(arr[0]>arr[1]){
-            return [arr[1],arr[0]]
-        }
-        else{
-            return [arr[0],arr[1]]
-        }
-    }
-    //get half length of array
-    //split in half
-    //take left - get half length of array - get new left and new right - continue till arr.length = 0/1/2
-    //take left and compare values return
-    //take right and compare values return
-    //take FIRST RIGHT SIDE
-    //repeate above till return values
-    let half_length = Math.ceil(arr.length/2);
-    let leftSide = mergeSort(arr.slice(0,half_length));
-    let rightSide = mergeSort(arr.slice(half_length));
-    return [leftSide, rightSide]
 
-
+    mid = Math.ceil(arr.length/2);
+    left = arr.slice(0,mid);
+    right = arr.slice(mid);
+   
+    
 }
-console.log(mergeSort([22,16,19,7,8,3,50,100]))
+
+function comboArr(left,right){
+    let comboArr = []; 
+    while(left.length!=0 || right.length!=0){
+        if(left[0] == right[0]){
+            comboArr.push(left.shift())
+        }
+        else if(left[0]<right[0]){
+            comboArr.push(left.shift());
+        }
+        else if(right[0]<left[0]){
+            comboArr.push(right.shift())
+        }
+        else if(left.length == 0){
+            comboArr.push(right.shift())
+        }
+        else if(right.length == 0){
+
+            comboArr.push(left.shift())
+        }
+    }
+    return comboArr;
+}
+console.log(mergeSort([497,492,227,594,659,44,729,542]))
+
+// console.log(comboArr([7,19,20,39,40,52,50],[2,13,16,39,60]))
+// console.log(comboArr([5],[3]))

@@ -33,32 +33,36 @@ function fibsRec(num) {
 
 
 //merge sort
-function mergeSort(arr, left, right , mid){
+function mergeSort(arr){
+    console.log('Recusion')
     //take entire array and divide as evenly as possible
     //select left subarray and split (repeat)
     //left subarray of length 1 cannot be split -> indicates merge [end] [sort]
     //select right subarray and split (length 1 merge)
     //selected merged(sorted) left and right subarray and merge
     //selected smallest of both arrays
-    if(arr.length ==0){
-        return 'empty arr';
+    if(arr.length==0){
+        return [];
     }
-    if(arr.length == 1){
+    else if(arr.length==1){
         return arr;
     }
-
-    mid = Math.ceil(arr.length/2);
-    left = arr.slice(0,mid);
-    right = arr.slice(mid);
-   
+    let half = Math.ceil(arr.length/2);
+    let left = mergeSort(arr.slice(0,half));
+    let right = mergeSort(arr.slice(half));
     
+    return comboArr(left,right)
 }
 
 function comboArr(left,right){
+    //takes 2 sorted arrays duplicates are fine
     let comboArr = []; 
     while(left.length!=0 || right.length!=0){
         if(left[0] == right[0]){
             comboArr.push(left.shift())
+            //to delete duplicate uncomment?
+
+            //right.shift() 
         }
         else if(left[0]<right[0]){
             comboArr.push(left.shift());
@@ -77,6 +81,6 @@ function comboArr(left,right){
     return comboArr;
 }
 console.log(mergeSort([497,492,227,594,659,44,729,542]))
-
+// console.log(mergeSort([1,2,3,4,5,6,7,8]))
 // console.log(comboArr([7,19,20,39,40,52,50],[2,13,16,39,60]))
 // console.log(comboArr([5],[3]))
